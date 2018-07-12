@@ -1,0 +1,11 @@
+亲爱的{{ user.username }}, 您好！
+
+欢迎来到博客
+
+维拉确认您的账户能够正常注册，请点击以下链接:
+
+{{ url_for('auth.confirm', token=token, _external=True) }}
+
+
+注意：此邮箱地址的回复不受监控
+

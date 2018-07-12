@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}我的博客{% endblock %}
+
+{% block body %}
+    <div class="container-fluid" style="margin-top: 70px;">
+    <div class="page-header">
+    <h1>{{ user.username }}</h1>
+    {% if user.name or user.location %}
+    <p>
+        {% if user.location %}
+         From <a href="http://maps.google.com/?q={{ user.location }}">{{ user.location }}</a>
+        {% endif %}
+    {% endif %}
+    </p>
+    {% if user.about_me %}
+        <p>{{ user.about_me }}</p>
+    {% endif %}
+    <p>
+        {% if user == current_user %}
+            <a class="btn btn-default" href="{{ url_for('.edit_profile') }}">编辑资料</a>
+        {% endif %}
+    </p>
+    </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block head %}博客首页{% endblock %}
+{% block body %}
+
+
+  <div class="container-fluid" style="margin-top: 70px;">
+    <h5  style="color: red;">你好,{% if current_user.is_authenticated %}{{ current_user.username }}{% else %}游客{% endif %}!</h5>
+        <div class="col-md-9">
+            <div class="list-group">
+                    <div class="list-group-item" style="border: 0;">
+                        <a href="#"><h4>这是标题部分</h4></a>
+                        <p>
+                            <small>发布时间: 2016-6-6</small>
+                            <small>点击量: <span class="badge">20</span></small>
+                        </p>
+                        <p class="text-muted">这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分
+                        </p>
+                        <p>
+                            <span class="badge">关键字</span>
+                            <span class="badge">关键字</span>
+                            <span class="badge">关键字</span>
+                        </p>
+                        <a href="#"><h4>这是标题部分</h4></a>
+                        <p>
+                            <small>发布时间: 2016-6-6</small>
+                            <small>点击量: <span class="badge">20</span></small>
+                        </p>
+                        <p class="text-muted">这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分这是内容部分
+                        </p>
+                        <p>
+                            <span class="badge">关键字</span>
+                            <span class="badge">关键字</span>
+                            <span class="badge">关键字</span>
+                        </p>
+
+                        </p>
+                    </div>
+                    <div style="border: 1px dashed #ddd;"></div>
+              <!-- 分页 -->
+                <div class="text-center">
+                    <ul class="pagination">
+                    <!-- 向前符号 -->
+                    <li><a href="#">«</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--/内容-->
+
+    <div class="col-md-3">
+    <div id="search" class="sidebar-block search" role="search">
+      <h2 class="title"><strong>搜索</strong></h2>
+      <form class="navbar-form" action="" method="post">
+        <div class="input-group">
+          <input type="text" class="form-control" size="35" placeholder="请输入关键字">
+          <span class="input-group-btn">
+          <button class="btn btn-default btn-search" type="submit">搜索</button>
+          </span> </div>
+      </form>
+    </div>
+    <div class="sidebar-block recommend">
+      <h2 class="title"><strong>热门推荐</strong></h2>
+      <ul>
+        <li><a target="_blank" href=""> <span class="thumb"><img src="images/icon/icon.png" alt=""></span> <span class="text">个人技术博客技术博客的 ...</span> <span class="text-muted">阅读(2165)</span></a></li>
+        <li><a target="_blank" href=""> <span class="thumb"><img src="images/icon/icon.png" alt=""></span> <span class="text">个人技术博客技术博客的 ...</span> <span class="text-muted">阅读(2165)</span></a></li>
+        <li><a target="_blank" href=""> <span class="thumb"><img src="images/icon/icon.png" alt=""></span> <span class="text">个人技术博客技术博客的 ...</span> <span class="text-muted">阅读(2165)</span></a></li>
+        <li><a target="_blank" href=""> <span class="thumb"><img src="images/icon/icon.png" alt=""></span> <span class="text">个人技术博客技术博客的 ...</span> <span class="text-muted">阅读(2165)</span></a></li>
+        <li><a target="_blank" href=""> <span class="thumb"><img src="images/icon/icon.png" alt=""></span> <span class="text">个人技术博客技术博客的 ...</span> <span class="text-muted">阅读(2165)</span></a></li>
+      </ul>
+      <h2 class="title"><strong>最新文章</strong></h2>
+      <ul>
+        <li><a target="_blank" href=""> <span class="thumb"><img src="images/icon/icon.png" alt=""></span> <span class="text">个人技术博客技术博客的 ...</span> <span class="text-muted">阅读(2165)</span></a></li>
+        <li><a target="_blank" href=""> <span class="thumb"><img src="images/icon/icon.png" alt=""></span> <span class="text">个人技术博客技术博客的 ...</span> <span class="text-muted">阅读(2165)</span></a></li>
+        <li><a target="_blank" href=""> <span class="thumb"><img src="images/icon/icon.png" alt=""></span> <span class="text">个人技术博客技术博客的 ...</span> <span class="text-muted">阅读(2165)</span></a></li>
+        <li><a target="_blank" href=""> <span class="thumb"><img src="images/icon/icon.png" alt=""></span> <span class="text">个人技术博客技术博客的 ...</span> <span class="text-muted">阅读(2165)</span></a></li>
+        <li><a target="_blank" href=""> <span class="thumb"><img src="images/icon/icon.png" alt=""></span> <span class="text">个人技术博客技术博客的 ...</span> <span class="text-muted">阅读(2165)</span></a></li>
+      </ul>
+    </div>
+    </div>
+  </div>
+{% endblock %}
