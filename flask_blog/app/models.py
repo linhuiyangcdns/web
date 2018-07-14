@@ -70,6 +70,8 @@ class User(db.Model,UserMixin):
     about_me = db.Column(db.Text())
     member_since = db.Column(db.DateTime(),default=datetime.utcnow())
     last_seen = db.Column(db.DateTime(),default=datetime.utcnow())
+    posts = db.relationship('Post',backref='author',lazy='dynamic')
+    comments = db.relationship('Comment',backref='author',lazy='dynamic')
 
     @property
     def password(self):
@@ -126,6 +128,30 @@ class AnonymousUser(AnonymousUserMixin):
 
     def is_administrator(self):
         return False
+
+class Post(db.Model):
+    __tablename__ = 'posts'
+    id = db.Column(db.Integer,primary_key=True)
+    title = db.Column(db.String(255))
+    body = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime,index=True,default=datetime.utcnow)
+    author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    comments = db.relationship('Comment',backref='post',lazy='dynamic')
+
+    def __repr__(self):
+        return '<Post %r>' % self.title
+
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer(),primary_key=True)
+    body = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime,index=True,default=datetime.utcnow)
+    post_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
+    author_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
+    def __repr__(self):
+        return '<Comment %r>' % self.body
 
 
 @login_manager.user_loader

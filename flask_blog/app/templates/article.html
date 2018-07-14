@@ -1,13 +1,37 @@
 {% extends 'base.html' %}
-
+{% import 'bootstrap/wtf.html' as wtf %}
 {% block body %}
  <div class="container-fluid" style="margin-top: 70px;">
         <div class="col-md-9">
             <div class="list-group">
                     <div class="list-group-item" style="border: 0;">
-                         <h1>Hello {{ name }}.</h1>
+                         <h1>{{  post.title }}</h1>
+                        <p class="text-muted">{{ post.body }}</p>
+                        <p>
+                            <small>{{ post.timestamp }}</small>
+                            <small>点击量: <span class="badge">20</span></small>
+                        </p>
+
                     </div>
             </div>
+        <div class="sidebar-block comment">
+            <h2 class="title"><strong>最新评论</strong></h2>
+            <ul>
+            <li>
+                <a href="{{ url_for('main.article',username=post.author.username,title=post.title) }}">
+                    <p>
+                        {% for comment in comments %}
+                            {{ comment.body }}评论
+                        {% endfor %}
+                    </p>
+                </a>
+                <p>
+                    {{ wtf.quick_form(form) }}
+                </p>
+            </li>
+            </ul>
         </div>
+        </div>
+
  </div>
 {% endblock %}

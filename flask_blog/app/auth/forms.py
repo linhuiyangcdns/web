@@ -44,3 +44,5 @@ class RegistrationForm(Form):
         """
         if User.query.filter_by(username=field.data).first():
             raise ValidationError('用户名已经被使用')
+
+
