@@ -166,7 +166,7 @@ class TeacherListView(View):
             all_teacher = all_teacher.filter(
                 Q(name__icontains=search_keywords) | Q(work_company__icontains=search_keywords))
 
-        rank_teacher = Teacher.objects.all().order_by("-fav_nums")[:5]
+        rank_teachers = Teacher.objects.all().order_by("-fav_nums")[:5]
 
         try:
             page = request.GET.get('page',1)
@@ -178,12 +178,30 @@ class TeacherListView(View):
             "all_teacher":teachers,
             "teacher_nums":teacher_nums,
             "sort":sort,
-            "rank_teachers":rank_teacher,
+            "rank_teachers":rank_teachers,
             "search_kyewords":search_keywords
         })
 
+# 教师详情页
 class TeacherDetailView(View):
-    def get(self,request):
-        return render(request,'teachers/teachers-detail.html',{
+    def get(self,request,teacher_id):
+        teacher = Teacher.objects.get(id= int(teacher_id))
+        teacher.click_nums += 1
+        teacher.save()
+        all_course = teacher.course_set.all()
+        rank_teacher = Teacher.objects.all().order_by("-fav_nums")[:5]
 
+        has_fav_teacher = False
+        has_fav_org = False
+        if request.user.is_authenticated:
+            if UserFavorite.objects.filter(user=request.user, fav_type=3, fav_id= teacher.id):
+                has_fav_teacher = True
+            if  UserFavorite.objects.filter(user=request.user, fav_type=2, fav_id= teacher.org.id):
+                has_fav_org = True
+        return render(request,'teachers/teacher-detail.html',{
+            "teacher":teacher,
+            "all_courses":all_course,
+            "rank_teachers":rank_teacher,
+            "has_fav_teacher": has_fav_teacher,
+            "has_fav_org": has_fav_org,
         })

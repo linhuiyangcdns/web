@@ -7,7 +7,7 @@
         {% block active %}
         <li class="active" ><a href="{% url 'index' %}">首页</a></li>
         <li >
-            <a href="{% static 'images/nav_hot.png' %}">
+            <a href="{% url 'course:course_list' %}">
                 公开课<img class="hot" src="{% static 'images/nav_hot.png' %}">
             </a>
         </li>

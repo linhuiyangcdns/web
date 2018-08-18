@@ -1,13 +1,25 @@
 {% extends 'base.html'%}
 {% load staticfiles %}
 {% block title %}课程详情{% endblock %}
+                            {% block active %}
+							<li ><a href="{% url 'index' %}">首页</a></li>
+							<li class="active">
+								<a href="{% url 'course:course_list' %}">
+									公开课<img class="hot" src="{% static 'images/nav_hot.png' %}">
+								</a>
+							</li>
+							<li  >
+								<a href="{% url 'organization:teacher_list' %}">授课教师</a>
+							</li>
+							<li ><a href="{% url 'organization:org_list' %}">授课机构</a></li>
+                            {% endblock %}
  {% block custom_bread %}
     <section>
 	<div class="wp">
 		<div class="crumbs">
 			<ul>
-				<li><a href="index.html">首页</a>></li>
-                <li><a href="course-list.html">公开课程</a>></li>
+				<li><a href="{% url 'index' %}">首页</a>></li>
+                <li><a href="{% url 'course:course_list' %}">公开课程</a>></li>
 				<li>课程详情</li>
 			</ul>
 		</div>
@@ -24,10 +36,9 @@
 						<div class="tb-booth tb-pic">
 							<img width="440" height="445" src="{{ MEDIA_URL }} {{ course.image }}" class="jqzoom" />
 						</div>
-
 					</div>
 					<div class="des">
-						<h1 title="django 从入门到精通体验开始了">{{ course.name }}</h1>
+						<h1 title="{{ course.name }}">{{ course.name }}</h1>
 						<span class="key">{{ course.desc }}</span>
 						<div class="prize">
 							<span class="fl">难度：<i class="key">{{ course.get_degree_display }}</i></span>
@@ -39,31 +50,31 @@
                             <li><span class="pram word3">课程类别：</span><span title="">{{ course.category }}</span></li>
 							<li class="piclist"><span class="pram word4">学习用户：</span>
                                 
-                                    <span class="pic"><img width="40" height="40" src="../media/image/2016/12/default_big_14.png"/></span>
+                                    <span class="pic"><img width="40" height="40" src="{{ MEDIA_URL }} {{ course.image }}"/></span>
                                 
 							</li>
 						</ul>
 						<div class="btns">
 							<div class="btn colectgroupbtn"  id="jsLeftBtn">
-                                  收藏
+                                    {% if has_fav_course %} 已收藏{% else %}收藏{% endif %}
                             </div>
                                 <div class="buy btn"><a style="color: white" href="course-video.html">开始学习</a></div>
 						</div>
 					</div>
                     <div class="group-share-box">
-                        <div class="bdsharebuttonbox"
-                             data-text="django开始了"
-                             data-desc="我在#慕课网#发现了"
-                             data-comment=""
-                             data-url="/group/groupdetail/15/">
-                            <span class="fl">分享到：</span>
-                            <a href="#" class="bds_more" data-cmd="more"></a>
-                            <a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>
-                            <a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>
-                            <a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>
-                            <a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>
-                            <a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>
-                        </div>
+                        <!--<div class="bdsharebuttonbox"-->
+                             <!--data-text="django开始了"-->
+                             <!--data-desc="我在#慕课网#发现了"-->
+                             <!--data-comment=""-->
+                             <!--data-url="/group/groupdetail/15/">-->
+                            <!--<span class="fl">分享到：</span>-->
+                            <!--<a href="#" class="bds_more" data-cmd="more"></a>-->
+                            <!--<a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a>-->
+                            <!--<a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a>-->
+                            <!--<a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a>-->
+                            <!--<a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a>-->
+                            <!--<a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a>-->
+                        <!--</div>-->
                     </div>
 				</div>
 				<div class="right">
@@ -81,7 +92,7 @@
                     </a>
 					<div class="btn  notlogin
 					     "data-favid="14" id="jsRightBtn">
-                         已收藏
+                         {% if has_fav_course %} 已收藏{% else %}收藏{% endif %}
                     </div>
 					<div class="clear">
 						<ul>
@@ -150,43 +161,43 @@
 </section>
 {% endblock %}
     {% block custom_js1 %}
-<!--<script type="text/javascript">-->
-<!--//收藏分享-->
-<!--function add_fav(current_elem, fav_id, fav_type){-->
-    <!--$.ajax({-->
-        <!--cache: false,-->
-        <!--type: "POST",-->
-        <!--url:"{% url "org:add_fav" %}",-->
-        <!--data:{'fav_id':fav_id, 'fav_type':fav_type},-->
-        <!--async: true,-->
-        <!--beforeSend:function(xhr, settings){-->
-            <!--xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");-->
-        <!--},-->
-        <!--success: function(data) {-->
-            <!--if(data.status == 'fail'){-->
-                <!--if(data.msg == '用户未登录'){-->
-                    <!--window.location.href="{% url 'login' %}?next={{ request.path }}";-->
-                <!--}else{-->
-                    <!--alert(data.msg)-->
-                <!--}-->
+<script type="text/javascript">
+//收藏分享
+function add_fav(current_elem, fav_id, fav_type){
+    $.ajax({
+        cache: false,
+        type: "POST",
+        url:"",
+        data:{'fav_id':fav_id, 'fav_type':fav_type},
+        async: true,
+        beforeSend:function(xhr, settings){
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+        },
+        success: function(data) {
+            if(data.status == 'fail'){
+                if(data.msg == '用户未登录'){
+                    window.location.href="{% url 'login' %}?next={{ request.path }}";
+                }else{
+                    alert(data.msg)
+                }
 
-            <!--}else if(data.status == 'success'){-->
-                <!--current_elem.text(data.msg)-->
-            <!--}-->
-        <!--},-->
-    <!--});-->
-<!--}-->
+            }else if(data.status == 'success'){
+                current_elem.text(data.msg)
+            }
+        },
+    });
+}
 
-<!--$('#jsLeftBtn').on('click', function(){-->
-    <!--add_fav($(this), {{ course.id }}, 1);-->
-<!--});-->
+$('#jsLeftBtn').on('click', function(){
+    add_fav($(this),  1);
+});
 
-<!--$('#jsRightBtn').on('click', function(){-->
-    <!--add_fav($(this), {{ course.course_org.id }}, 2);-->
-<!--});-->
+$('#jsRightBtn').on('click', function(){
+    add_fav($(this), 2);
+});
 
 
-<!--</script>-->
+</script>
 {% endblock %}
 
 

@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block title %}公开课{% endblock %}
+                            {% block active %}
+							<li ><a href="{% url 'index' %}">首页</a></li>
+							<li class="active">
+								<a href="{% url 'course:course_list' %}">
+									公开课<img class="hot" src="{% static 'images/nav_hot.png' %}">
+								</a>
+							</li>
+							<li  >
+								<a href="{% url 'organization:teacher_list' %}">授课教师</a>
+							</li>
+							<li ><a href="{% url 'organization:org_list' %}">授课机构</a></li>
+                            {% endblock %}
 {% block custom_bread %}
     <section>
         <div class="wp">
             <ul  class="crumbs">
-                <li><a href="index.html">首页</a>></li>
+                <li><a href="{% url 'index' %}">首页</a>></li>
                 <li>公开课</li>
             </ul>
         </div>
@@ -30,7 +42,7 @@
                         {% for course in all_course.object_list %}
                             <div class="box">
                                 <a href="{% url 'course:course_detail' course.id %}">
-                                    <img width="280" height="350" class="scrollLoading" src=" "/>
+                                    <img width="280" height="350" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
                                 </a>
                                 <div class="des">
                                     <a href="course-detail.html">
@@ -76,45 +88,19 @@
 			<div class="right layout">
 				<div class="head">热门课程推荐</div>
 				<div class="group_recommend">
-                    
+                      {% for course in hot_courses %}
                     <dl>
 						<dt>
 							<a target="_blank" href="">
-								<img width="240" height="220" class="scrollLoading" src="../media/courses/2016/11/540e57300001d6d906000338-240-135_n0L8vbw.jpg"/>
+								<img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
 							</a>
 						</dt>
 						<dd>
-							<a target="_blank" href=""><h2> django与vuejs实战项目2</h2></a>
-							<span class="fl">难度：<i class="key">高级</i></span>
+							<a target="_blank" href="{% url 'course:course_detail' course.id %}"><h2> {{ course.name }}</h2></a>
+							<span class="fl">难度：<i class="key">{{ course.get_degree_display }}</i></span>
 						</dd>
 					</dl>
-                    
-                    <dl>
-						<dt>
-							<a target="_blank" href="">
-								<img width="240" height="220" class="scrollLoading" src="../media/courses/2016/12/python面向对象.jpg"/>
-							</a>
-						</dt>
-						<dd>
-							<a target="_blank" href=""><h2> python面向对象</h2></a>
-							<span class="fl">难度：<i class="key">中级</i></span>
-						</dd>
-					</dl>
-                    
-                    <dl>
-						<dt>
-							<a target="_blank" href="">
-								<img width="240" height="220" class="scrollLoading" src="../media/courses/2016/12/python文件处理.jpg"/>
-							</a>
-						</dt>
-						<dd>
-							<a target="_blank" href=""><h2> python文件处理</h2></a>
-							<span class="fl">难度：<i class="key">中级</i></span>
-						</dd>
-					</dl>
-                    
-
-
+            {% endfor %}
 				</div>
 			</div>
 		</div>
