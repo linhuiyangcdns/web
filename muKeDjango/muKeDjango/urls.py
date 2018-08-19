@@ -22,12 +22,13 @@ from django.views.generic import TemplateView
 from .settings import MEDIA_ROOT
 
 import xadmin
-from users.views import LoginView,RegisterView,LogoutView,ActiveUserView,ForgetPwdView,ResetView
+from users.views import LoginView,RegisterView,LogoutView,ActiveUserView,ForgetPwdView,ResetView,IndexView
 
 urlpatterns = [
     #url(r'^xadmin/', xadmin.site.urls),
     path('xadmin/',xadmin.site.urls),
-    path('', TemplateView.as_view(template_name= "index.html"), name= "index"),
+    path('', IndexView.as_view(), name=  "index"),
+    #path('', TemplateView.as_view(template_name= "index.html"), name= "index"),
     path('login/',LoginView.as_view(),name='login'),
     path('register/',RegisterView.as_view(),name='register'),
     path('logout/',LogoutView.as_view(),name='logout'),
@@ -43,5 +44,7 @@ urlpatterns = [
     re_path(r'media/(?P<path>.*)', serve, {"document_root": MEDIA_ROOT}),
 
     path("course/", include('course.urls', namespace='course')),
+    path("users/", include('users.urls', namespace='users'))
+
 
 ]

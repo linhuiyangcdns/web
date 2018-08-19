@@ -39,7 +39,6 @@ class CourseOrg(models.Model):
     students = models.IntegerField(default=0, verbose_name=u"学习人数")
     course_nums = models.IntegerField(default=0, verbose_name=u"课程数")
     tag = models.CharField(max_length=20,default=u'国内名校',verbose_name=u'机构标签')
-    teachers = models.IntegerField(default=0,verbose_name=u'教师数')
 
     class Meta:
         verbose_name = u"课程机构"

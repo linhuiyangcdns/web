@@ -30,7 +30,8 @@ class Course(models.Model):
     )
     click_nums = models.IntegerField(default=0,verbose_name=u'点击数')
     add_time = models.DateTimeField(default=datetime.now,verbose_name=u'添加时间')
-    course_org = models.ForeignKey(CourseOrg, on_delete=models.CASCADE, verbose_name=u"所属机构", null=True, blank=True)
+    category = models.CharField(max_length=20, verbose_name=u"课程类别", default=u"后端开发")
+    tag = models.CharField(max_length=15, verbose_name=u"课程标签", default=u"")
 
     class Meta:
         verbose_name = u'课程'

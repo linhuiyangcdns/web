@@ -109,6 +109,14 @@ class OrgCourseView(View):
     def get(self,request,org_id):
         course_org = CourseOrg.objects.get(id=int(org_id))
         all_courses = course_org.course_set.all()
+        # try:
+        #     page = request.GET.get('page',1)
+        # except PageNotAnInteger:
+        #     page = 1
+        #
+        # p = Paginator(all_courses,4,request=request)
+        # courses = p.page(page)
+
         return render(request,'org/org-detail-course.html',{
             "course_org":course_org,
             "all_course":all_courses,
@@ -135,11 +143,9 @@ class OrgTeacherView(View):
     def get(self, request, org_id):
         course_org = CourseOrg.objects.get(id=int(org_id))
         all_teachers = course_org.teacher_set.all()
-        return render(request, 'org/org-detail-desc.html', {
+        return render(request, 'org/org-detail-teachers.html', {
             "course_org": course_org,
             "all_teachers":all_teachers,
-
-
         })
 
 

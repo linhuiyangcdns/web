@@ -9,7 +9,7 @@
 			<a class="green fr more" href="{% url 'organization:org_course' course_org.id %}">查看更多  >  </a>
 		</div>
 		<div class="brief group_list">
-            {% for course in all_course %}
+            {% for course in all_courses %}
                 <div class="module1_5 box">
                     <a href="{% url 'course:course_detail' course.id %}"><img width="214" src="{{ MEDIA_URL }}{{ course.image }}"/></a>
                     <div class="des">
@@ -26,9 +26,6 @@
                     </div>
                 </div>
             {% endfor %}
-
-            
-
 		</div>
 	</div>
 <div class="right companycenter layout" >
