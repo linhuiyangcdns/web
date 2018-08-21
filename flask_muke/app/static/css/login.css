@@ -445,3 +445,10 @@ a:hover{
 .dialogbox .button{width:100%;height:45px;line-height:45px;background:#5dbf45;color:#fff;margin:0;border:none; cursor: pointer;position: relative;}
 .dialogbox .button input{background: none;border:none;width:100%;color:#fff;cursor: pointer;line-height: 45px;}
 .dialogbox .button:hover{background:#4FB137;}
+.verify-code{
+    position:relative;
+    width:288px;
+    height:38px;
+    line-height:38px;
+    border:green solid 1px;
+}

@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+<html lang="en-us" >
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="robots" content="NONE,NOARCHIVE" />
+  <title>主页面 | 慕课网后台管理站</title>
+
+  <link href="{{ url_for('static',filename = 'vendor/bootstrap/css/bootstrap.css') }}" type="text/css" media="screen" rel="stylesheet" />
+
+  <link rel="stylesheet" type="text/css" id="site-theme" href="{{ url_for('static',filename = 'css/themes/bootstrap-xadmin.css') }}" />
+
+  <link href="{{ url_for('static',filename = 'vendor/font-awesome/css/font-awesome.css') }}" type="text/css" media="screen" rel="stylesheet" />
+<link href="{{ url_for('static',filename = 'css/xadmin.main.css') }}" type="text/css" media="screen" rel="stylesheet" />
+<link href="{{ url_for('static',filename = 'css/xadmin.plugins.css') }}" type="text/css" media="screen" rel="stylesheet" />
+<link href="{{ url_for('static',filename = 'css/xadmin.responsive.css') }}" type="text/css" media="screen" rel="stylesheet" />
+  <link href="{{ url_for('static',filename = 'css/xadmin.page.dashboard.css') }}" type="text/css" media="screen" rel="stylesheet" />
+
+  <script type="text/javascript" src="{{ url_for('static',filename = 'vendor/jquery/jquery.js') }}"></script>
+
+{#  <script type="text/javascript">#}
+{#    window.__admin_media_prefix__ = "/static/xadmin/";#}
+{#    window.__admin_path_prefix__ = "/xadmin/";#}
+{#    window.__admin_language_code__ = "";#}
+{#  </script>#}
+  <script type="text/javascript" src="/xadmin/jsi18n/"></script>
+
+
+</head>
+<body class="dashboard">
+
+  <!-- Header -->
+
+  <div id="top-nav" class="navbar navbar-xs navbar-inverse navbar-fixed-top">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">慕课网后台管理站</a>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav pull-right">
+
+
+
+
+<li class="dropdown g-add">
+  <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+  <i class="fa fa-plus"></i> <span class="hide-sm">增加 <i class="caret"></i></span></a>
+  <ul id="g-add-menu" class="dropdown-menu" role="menu">
+
+        <li><a href="/xadmin/users/userprofile/add/"><i class="fa fa-plus"></i> 增加 用户信息</a></li>
+
+        <li><a href="/xadmin/auth/permission/add/"><i class="fa fa-plus"></i> 增加 权限</a></li>
+
+        <li><a href="/xadmin/course/course/add/"><i class="fa fa-plus"></i> 增加 课程</a></li>
+
+        <li><a href="/xadmin/organization/citydict/add/"><i class="fa fa-plus"></i> 增加 城市</a></li>
+
+        <li><a href="/xadmin/organization/teacher/add/"><i class="fa fa-plus"></i> 增加 教师</a></li>
+
+        <li><a href="/xadmin/users/banner/add/"><i class="fa fa-plus"></i> 增加 轮播图</a></li>
+
+        <li><a href="/xadmin/course/courseresource/add/"><i class="fa fa-plus"></i> 增加 课程资源</a></li>
+
+        <li><a href="/xadmin/organization/courseorg/add/"><i class="fa fa-plus"></i> 增加 课程机构</a></li>
+
+        <li><a href="/xadmin/operation/userask/add/"><i class="fa fa-plus"></i> 增加 用户咨询</a></li>
+
+        <li><a href="/xadmin/operation/coursecomments/add/"><i class="fa fa-plus"></i> 增加 课程评论</a></li>
+
+        <li><a href="/xadmin/users/emailverifyrecord/add/"><i class="fa fa-plus"></i> 增加 邮箱验证码</a></li>
+
+        <li><a href="/xadmin/course/video/add/"><i class="fa fa-plus"></i> 增加 视频</a></li>
+
+        <li><a href="/xadmin/xadmin/userwidget/add/"><i class="fa fa-plus"></i> 增加 用户小组件</a></li>
+
+        <li><a href="/xadmin/xadmin/bookmark/add/"><i class="fa fa-plus"></i> 增加 书签</a></li>
+
+        <li><a href="/xadmin/course/lesson/add/"><i class="fa fa-plus"></i> 增加 章节</a></li>
+
+        <li><a href="/xadmin/operation/usercourse/add/"><i class="fa fa-plus"></i> 增加 用户课程</a></li>
+
+        <li><a href="/xadmin/xadmin/usersettings/add/"><i class="fa fa-plus"></i> 增加 用户设置</a></li>
+
+        <li><a href="/xadmin/auth/group/add/"><i class="fa fa-plus"></i> 增加 组</a></li>
+
+        <li><a href="/xadmin/xadmin/log/add/"><i class="fa fa-plus"></i> 增加 日志记录</a></li>
+
+        <li><a href="/xadmin/operation/usermessage/add/"><i class="fa fa-plus"></i> 增加 用户消息</a></li>
+
+        <li><a href="/xadmin/operation/userfavorite/add/"><i class="fa fa-plus"></i> 增加 用户收藏</a></li>
+
+  </ul>
+</li>
+
+
+
+<li class="dropdown g-theme">
+<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+<i class="fa fa-magic"></i> <span class="hide-sm">主题 <i class="caret"></i></span></a>
+<ul id="g-theme-menu" class="dropdown-menu" role="menu">
+
+      <li class="active"><a data-css-href="{{ url_for('static',filename = 'css/themes/bootstrap-xadmin.css') }}">默认</a></li>
+
+      <li><a data-css-href="{{ url_for('static',filename = 'css/themes/bootstrap-theme.css') }}">Bootstrap2</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/cerulean/bootstrap.min.css">Cerulean</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/cosmo/bootstrap.min.css">Cosmo</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/cyborg/bootstrap.min.css">Cyborg</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/darkly/bootstrap.min.css">Darkly</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/flatly/bootstrap.min.css">Flatly</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/journal/bootstrap.min.css">Journal</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/lumen/bootstrap.min.css">Lumen</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/paper/bootstrap.min.css">Paper</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/readable/bootstrap.min.css">Readable</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/sandstone/bootstrap.min.css">Sandstone</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/simplex/bootstrap.min.css">Simplex</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/slate/bootstrap.min.css">Slate</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/spacelab/bootstrap.min.css">Spacelab</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/superhero/bootstrap.min.css">Superhero</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/united/bootstrap.min.css">United</a></li>
+
+      <li><a data-css-href="https://bootswatch.com/3/yeti/bootstrap.min.css">Yeti</a></li>
+
+</ul>
+</li>
+
+          <li class="dropdown">
+            <a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+            <strong>欢迎， admin</strong> <span class="caret"></span></a>
+            <ul id="g-account-menu" class="dropdown-menu" role="menu">
+              <li><a href="/xadmin/account/password/"><i class="fa fa-key"></i> 更改密码</a></li>
+            </ul>
+          </li>
+
+        <li><a href="/xadmin/logout/"><i class="show-sm fa fa-sign-out"></i><span class="hide-sm">注销</span></a></li>
+      </ul>
+
+
+
+<form method="get" class="top-search-form navbar-form navbar-left" id="g-search">
+  <div class="input-group">
+    <input name="_q_" class="form-control" type="text">
+    <span class="input-group-btn">
+      <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-search"></i> 搜索 <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+
+          <li><a data-action="/xadmin/users/userprofile/"><i class="fa fa-search"></i> 搜索用户信息</a></li>
+
+          <li><a data-action="/xadmin/course/course/"><i class="fa fa-search"></i> 搜索课程</a></li>
+
+          <li><a data-action="/xadmin/organization/citydict/"><i class="fa fa-search"></i> 搜索城市</a></li>
+
+          <li><a data-action="/xadmin/organization/teacher/"><i class="fa fa-search"></i> 搜索教师</a></li>
+
+          <li><a data-action="/xadmin/users/banner/"><i class="fa fa-search"></i> 搜索轮播图</a></li>
+
+          <li><a data-action="/xadmin/course/courseresource/"><i class="fa fa-search"></i> 搜索课程资源</a></li>
+
+          <li><a data-action="/xadmin/organization/courseorg/"><i class="fa fa-search"></i> 搜索课程机构</a></li>
+
+          <li><a data-action="/xadmin/operation/userask/"><i class="fa fa-search"></i> 搜索用户咨询</a></li>
+
+          <li><a data-action="/xadmin/operation/coursecomments/"><i class="fa fa-search"></i> 搜索课程评论</a></li>
+
+          <li><a data-action="/xadmin/users/emailverifyrecord/"><i class="fa fa-search"></i> 搜索邮箱验证码</a></li>
+
+          <li><a data-action="/xadmin/course/video/"><i class="fa fa-search"></i> 搜索视频</a></li>
+
+          <li><a data-action="/xadmin/course/lesson/"><i class="fa fa-search"></i> 搜索章节</a></li>
+
+          <li><a data-action="/xadmin/operation/usercourse/"><i class="fa fa-search"></i> 搜索用户课程</a></li>
+
+          <li><a data-action="/xadmin/auth/group/"><i class="fa fa-search"></i> 搜索组</a></li>
+
+          <li><a data-action="/xadmin/xadmin/log/"><i class="fa fa-search"></i> 搜索日志记录</a></li>
+
+          <li><a data-action="/xadmin/operation/usermessage/"><i class="fa fa-search"></i> 搜索用户消息</a></li>
+
+          <li><a data-action="/xadmin/operation/userfavorite/"><i class="fa fa-search"></i> 搜索用户收藏</a></li>
+
+      </ul>
+    </span>
+  </div>
+</form>
+
+
+
+
+    </div>
+  </div>
+
+  <div id="body-content" class="clearfix row">
+    <div id="left-side" class="col-sm-1 col-md-2">
+
+
+
+
+
+
+<div class="panel-group hide-sm nav-sitemenu col-md-2" id="nav-accordion">
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h6 class="panel-title">
+        <span class="badge badge-info">3</span>
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#nav-accordion" href="#nav-panel-1">
+
+          <i class="fa-fw fa fa-circle-o"></i>
+          机构管理
+
+        </a>
+      </h6>
+    </div>
+    <div id="nav-panel-1" class="list-group panel-collapse collapse">
+
+      <a href="/xadmin/organization/citydict/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        所在城市</span>
+      </a>
+
+      <a href="/xadmin/organization/courseorg/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        机构信息</span>
+      </a>
+
+      <a href="/xadmin/organization/teacher/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        机构讲师</span>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h6 class="panel-title">
+        <span class="badge badge-info">5</span>
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#nav-accordion" href="#nav-panel-2">
+
+          <i class="fa-fw fa fa-circle-o"></i>
+          课程管理
+
+        </a>
+      </h6>
+    </div>
+    <div id="nav-panel-2" class="list-group panel-collapse collapse">
+
+      <a href="/xadmin/course/course/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        课程信息</span>
+      </a>
+
+      <a href="/xadmin/course/lesson/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        章节信息</span>
+      </a>
+
+      <a href="/xadmin/course/video/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        视频信息</span>
+      </a>
+
+      <a href="/xadmin/course/courseresource/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        课程资源</span>
+      </a>
+
+      <a href="/xadmin/operation/coursecomments/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        课程评论</span>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h6 class="panel-title">
+        <span class="badge badge-info">5</span>
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#nav-accordion" href="#nav-panel-3">
+
+          <i class="fa-fw fa fa-circle-o"></i>
+          用户管理
+
+        </a>
+      </h6>
+    </div>
+    <div id="nav-panel-3" class="list-group panel-collapse collapse">
+
+      <a href="/xadmin/users/userprofile/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        用户信息</span>
+      </a>
+
+      <a href="/xadmin/users/emailverifyrecord/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        用户验证</span>
+      </a>
+
+      <a href="/xadmin/operation/usercourse/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        用户课程</span>
+      </a>
+
+      <a href="/xadmin/operation/userfavorite/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        用户收藏</span>
+      </a>
+
+      <a href="/xadmin/operation/usermessage/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        用户消息</span>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h6 class="panel-title">
+        <span class="badge badge-info">5</span>
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#nav-accordion" href="#nav-panel-4">
+
+          <i class="fa-fw fa fa-circle-o"></i>
+          系统管理
+
+        </a>
+      </h6>
+    </div>
+    <div id="nav-panel-4" class="list-group panel-collapse collapse">
+
+      <a href="/xadmin/operation/userask/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        用户咨询</span>
+      </a>
+
+      <a href="/xadmin/users/banner/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        首页轮播</span>
+      </a>
+
+      <a href="/xadmin/auth/group/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        用户分组</span>
+      </a>
+
+      <a href="/xadmin/auth/permission/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        用户权限</span>
+      </a>
+
+      <a href="/xadmin/xadmin/log/" class="list-group-item">
+        <i class="fa-fw fa fa-circle-o"></i>
+        日志记录</span>
+      </a>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+  <ul class="well nav nav-list nav-sitemenu show-sm">
+    <li class="app_menu">
+      <a href="/xadmin/"><i class="icon fa-fw fa fa-home"></i></a><hr/>
+    </li>
+
+      <li class="app_menu dropdown-submenu ">
+        <a href="#" class="section">
+          <i class="icon fa-fw fa fa-circle-o"></i>
+        </a><hr/>
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="/xadmin/organization/citydict/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            所在城市</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/organization/courseorg/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            机构信息</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/organization/teacher/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            机构讲师</span></a>
+          </li>
+
+        </ul>
+      </li>
+
+      <li class="app_menu dropdown-submenu ">
+        <a href="#" class="section">
+          <i class="icon fa-fw fa fa-circle-o"></i>
+        </a><hr/>
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="/xadmin/course/course/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            课程信息</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/course/lesson/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            章节信息</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/course/video/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            视频信息</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/course/courseresource/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            课程资源</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/operation/coursecomments/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            课程评论</span></a>
+          </li>
+
+        </ul>
+      </li>
+
+      <li class="app_menu dropdown-submenu ">
+        <a href="#" class="section">
+          <i class="icon fa-fw fa fa-circle-o"></i>
+        </a><hr/>
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="/xadmin/users/userprofile/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            用户信息</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/users/emailverifyrecord/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            用户验证</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/operation/usercourse/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            用户课程</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/operation/userfavorite/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            用户收藏</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/operation/usermessage/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            用户消息</span></a>
+          </li>
+
+        </ul>
+      </li>
+
+      <li class="app_menu dropdown-submenu ">
+        <a href="#" class="section">
+          <i class="icon fa-fw fa fa-circle-o"></i>
+        </a><hr/>
+        <ul class="dropdown-menu">
+
+          <li>
+            <a href="/xadmin/operation/userask/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            用户咨询</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/users/banner/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            首页轮播</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/auth/group/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            用户分组</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/auth/permission/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            用户权限</span></a>
+          </li>
+
+          <li>
+            <a href="/xadmin/xadmin/log/">
+            <i class="fa-fw fa fa-circle-o"></i>
+            日志记录</span></a>
+          </li>
+
+        </ul>
+      </li>
+
+
+  </ul>
+
+
+
+
+
+    </div>
+
+    <div id="content-block" class="col-sm-11 col-md-10">
+
+
+
+      <div class="navbar content-navbar navbar-default navbar-xs" data-toggle="breakpoint"
+        data-class-xs="navbar content-navbar navbar-inverse navbar-xs"
+        data-class-sm="navbar content-navbar navbar-default navbar-xs">
+        <div class="navbar-header">
+
+
+<button class="navbar-toggle pull-left" data-toggle="class" data-target="#body-content" data-class-name="show_menu">
+  <i class="fa fa-list"></i>
+</button>
+
+  <a title="添加小组件" href="/xadmin/xadmin/userwidget/add/?user=1&amp;page_id=home&amp;_redirect=/xadmin/" class="navbar-toggle pull-right">
+    <i class="fa fa-plus"></i></a>
+
+
+
+          <a class="navbar-brand" data-toggle="collapse" data-target="#top-nav .navbar-collapse">
+
+  <i class="fa fa-dashboard"></i> 主页面
+
+          </a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+
+          </ul>
+
+
+          <div class="navbar-btn pull-right hide-xs">
+
+
+
+  <a title="添加小组件" href="/xadmin/xadmin/userwidget/add/?user=1&amp;page_id=home&amp;_redirect=/xadmin/" class="btn btn-primary">
+    <i class="fa fa-plus"></i> <span>添加小组件</span></a>
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+<div class="dashboard row">
+
+</div>
+<input type='hidden' id='_portal_key' value='dashboard:home:pos' />
+
+    </div>
+  </div>
+
+
+  <div id="footer">
+    <hr/>
+    <footer class="text-center">
+        <p>&copy; 慕课</p>
+    </footer>
+  </div>
+
+
+
+  <script type="text/javascript" src="{{ url_for('static',filename = 'vendor/jquery-ui/jquery.ui.core.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename = 'vendor/jquery-ui/jquery.ui.widget.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename = 'vendor/jquery-ui/jquery.ui.mouse.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename = 'vendor/jquery-ui/jquery.ui.sortable.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename = 'vendor/bootstrap/js/bootstrap.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename = 'js/xadmin.main.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename = 'js/xadmin.responsive.js')}}"></script>
+  <script type="text/javascript" src="{{ url_for('static',filename = 'vendor/jquery-ui/jquery.ui.effect.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename = 'js/xadmin.plugin.themes.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename = 'js/xadmin.page.dashboard.js')}}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename = 'js/xadmin.plugin.portal.js')}}"></script>
+
+
+</body>
+</html>

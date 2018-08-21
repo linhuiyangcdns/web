@@ -1,10 +1,11 @@
 import os
-from app import create_app, db
+from app import create_app
+from app.database import db
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 
-import pymysql
-pymysql.install_as_MySQLdb()
+from app.users.models import *
+
 
 
 
@@ -18,7 +19,8 @@ def make_shell_context():
 
 
 manager.add_command("shell",Shell(make_context=make_shell_context))
-manager.add_command('models', MigrateCommand)
+manager.add_command('db', MigrateCommand)
+
 
 if __name__ == '__main__':
 
