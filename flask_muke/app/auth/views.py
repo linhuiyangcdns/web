@@ -4,6 +4,7 @@ from flask_login import login_user,logout_user,login_required,current_user
 from .forms import RegisterForm, LoginForm, FindPasswordForm, ResetPasswordForm,get_verify_code
 import time
 from app.users.models import User
+from app.database import db
 
 
 
@@ -12,13 +13,19 @@ from app.users.models import User
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        print(request.form)
-        print(request.form["username"])
-        print(request.form["email"])
-        print(request.form["password"])
-        return "注册成功"
-    else:
-        return render_template('auth/register.html', form=form)
+        if session.get('image') != form.verify_code.data:
+            flash('验证码错误','yzmerror')
+            return redirect(url_for('auth.register'))
+        try:
+            user = User(email=form.email.data,
+                        password=form.password.data)
+            db.session.add(user)
+            flash('注册成功','result')
+            return redirect(url_for('auth.login'))
+        except:
+            flash('帐号已经存在','exists')
+            return redirect(url_for('auth.register'))
+    return render_template('auth/register.html', form=form)
 
 
 # 登陆
@@ -28,12 +35,13 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if session.get('image') != form.verify_code.data:
-            flash('验证码错误')
+            flash('验证码错误','yzm')
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             return redirect(request.args.get('next') or url_for('operation.index'))
         else:
-            flash('用户名或者密码不正确')
+            flash('用户名或者密码不正确','zhmm')
+            return redirect(url_for('auth.login'))
     return render_template('auth/login.html', form=form)
 
 

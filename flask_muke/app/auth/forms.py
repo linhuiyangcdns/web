@@ -10,6 +10,7 @@ class RegisterForm(Form):
     email = StringField("邮箱",validators=[DataRequired(),Length(1,64),Email()])
     password = PasswordField("密码",validators=[DataRequired()])
     re_password = PasswordField("再次输入密码",validators=[DataRequired(),EqualTo('password',message='两次密码必须一致')])
+    verify_code = StringField('VerifyCode', validators=[DataRequired()])
     submit = SubmitField("注册")
 
     def validate_email(self, field):
@@ -92,7 +93,7 @@ def get_verify_code():
     '''生成验证码图形'''
     code = gene_text()
     # 图片大小120×50
-    width, height = 120, 50
+    width, height = 120, 36
     # 新图片对象
     im = Image.new('RGB',(width, height),'white')
     # 字体
