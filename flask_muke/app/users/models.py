@@ -29,7 +29,7 @@ class User(db.Model):
     pwd = db.Column(db.String(256))
     password_hash = db.Column(db.String(128), unique=True)  # 密码 哈希
     avatar_hash = db.Column(db.String(32))
-    image = db.Column(db.TEXT)  # 图像
+    image = db.Column(db.Text)  # 图像
     ac_type = db.Column(db.String(4), default="1")  # 1表示普通用户 2表示管理员后台账号
     addtime = db.Column(db.DateTime, index=True, default=datetime.utcnow)  # 注册时间
     uuid = db.Column(db.String(1024))
