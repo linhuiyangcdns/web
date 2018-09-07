@@ -18,6 +18,7 @@ class City(db.Model):
 
 class CourseOrg(db.Model):
     __tablename__ = 'courseOrg'
+    id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String(50))
     desc = db.Column(db.Text)
     category = db.Column(db.String(20),default='培训机构')
@@ -28,15 +29,20 @@ class CourseOrg(db.Model):
     city = db.relationship('City',backref='user', lazy='dynamic')
     students = db.Column(db.Integer,default=0)
     add_time = db.Column(db.DateTime(),default=datetime.now)
-    teacher = db.relationship('Teacher',backref='user',lazy='dynamic')
+    teachers = db.relationship('Teacher',backref='user',lazy='dynamic')
+    courses = db.relationship('Course',backref='courseOrg',lazy='dynamic')
 
     def __repr__(self):
-        return '<CourseOrg {}>'.format(self.name)
+        return '<City {}>'.format(self.name)
+
+
 
 class Teacher(db.Model):
     """
     讲师
     """
+    __tablename__ = 'teacher'
+    id = db.Column(db.Integer,primary_key=True)
     org_id = db.Column(db.Integer, db.ForeignKey('org.id'))
     name = db.Column(db.String(50))
     work_years = db.Column(db.Integer,default=0)
@@ -46,6 +52,7 @@ class Teacher(db.Model):
     points = db.Column(db.String(50)) # 教学特点
     click_nums = db.Column(db.Integer,default=0)
     fav_nums = db.Column(db.Integer,default=0)
+    courses = db.relationship('Course',backref='teacher',lazy='dynamic')
     add_time = db.Column(db.DateTime(),default=datetime.now)
 
     def __repr__(self):
